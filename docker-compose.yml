@@ -1,0 +1,41 @@
+version: "3.3"
+services:
+  exd9:
+    build: '.'
+    container_name: exd9
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=ex_db
+      - DB_USER_NAME=postgres
+      - DB_PASSWORD=postgres
+    volumes:
+      - ./modules:/opt/drupal/web/sites/default/modules
+      # - ./settings.php:/opt/drupal/web/sites/default/settings.php
+    restart: always
+
+  postgres:
+    image: postgres:11
+    container_name: postgres_bg
+    environment:
+      POSTGRES_DB: ex_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    # volumes:
+    #  - ./private/var/lib/postgresql:/var/lib/postgresql
+    restart: always
+  pgadmin:
+    image: dpage/pgadmin4:4.18
+    container_name: bigcard_pgadmin4
+#     container_name: pgadmin4_bg
+    ports:
+      - 7778:80
+    # volumes:
+    #   - ./pgadmin:/var/lib/pgadmin/storage
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    hostname: pgadmin4
+    restart: always
