@@ -774,12 +774,19 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'ex_db',
-  'username' => 'postgres',
-  'password' => 'postgres',
-  'prefix' => '',
-  'host' => '172.23.0.2',
+  // 'database' => 'ex_db',
+  // 'username' => 'postgres',
+  // 'password' => 'postgres',
+  // 'prefix' => '',
+  // 'host' => '172.23.0.2',
+  // 'port' => '5432',
+
+  'database' => getenv('DB_NAME'),
+  'username' => getenv('DB_USER_NAME'),
+  'password' => getenv('DB_PASSWORD'),
   'port' => '5432',
+  'host' => getenv('DB_HOST'),
+
   'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
   'driver' => 'pgsql',
 );
